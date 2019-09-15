@@ -55,6 +55,15 @@ public class NetworkTest {
     }
 
     @Test
+    public void shouldReturnAffirmativeOnlyForNeighborhood() {
+        final int node = 1;
+        final Integer[] connected = new Integer[]{1, 2, 4, 6};
+        final Integer[] unconnected = new Integer[]{3, 5, 7, 8};
+        Arrays.stream(connected).forEach(n -> assertThat(network.query(node, n), is(true)));
+        Arrays.stream(unconnected).forEach(n -> assertThat(network.query(node, n), is(false)));
+    }
+
+    @Test
     public void shouldThrowExceptionForInvalidSizeParameter() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Invalid size parameter, only a positive integer is allowed");
